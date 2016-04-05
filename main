@@ -13,15 +13,17 @@
 
 (define MTS (empty-scen WIDTH HEIGHT))
 
-(define SHP "radial-star")
-(define PTS 10)
+(define SHP "radial-star")  ;shape of ballon
+(define PTS 10)             ;# of points on exploded ballon
+(define MIN-R 10)           ;minimum radius of ballon
+(define MAX-R 100)          ;maximum radius of ballon
 
 ;; =================
 ;; Data definitions:
 
 (define-struct (ballon (SHP PTS R1 R2 C)))
-;; BALLOON is (make-ballon (SHP PTS Natural Natural String))
-;; interp.  (make=ballon (SHP PTS R1 R2 C)) is a balloon with 
+;; BALLOON is (make-ballon (String Natural Natural[MIN-R, MAX-R] Natural[MIN-R, MAX-R] String))
+;; interp.  (make-ballon (SHP PTS R1 R2 C)) is a balloon with 
 ;;          SHP is the shape of the ballon (radial-star)
 ;;          PTS is the number of points on the exploded balloon
 ;;          R1 is the inner diamter
@@ -39,9 +41,8 @@
   (big-bang ws                   ; WS
             (on-tick   tock)     ; WS -> WS
             (to-draw   render)   ; WS -> Image
-            (stop-when ...)      ; WS -> Boolean
-            (on-mouse  ...)      ; WS Integer Integer MouseEvent -> WS
-            (on-key    ...)))    ; WS KeyEvent -> WS
+;           (on-mouse  ...)      ; WS Integer Integer MouseEvent -> WS
+            
 
 ;; WS -> WS
 ;; produce the next ...
