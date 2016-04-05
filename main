@@ -31,8 +31,18 @@
 ;;          C is the color of the balloon                              ;THIS WILL NEED TO BE AN ENUMERATION !!!
 (define B1 (make-balloon (SHP PTS MIN MIN "red")))
 (define B2 (make-balloon (SHP PTS MAX MAX "blue")))
-(define B3 (make-balloon (SHP PTS 20  20  "green)))
-(define B4 (make-balloon (SHP PRS MAX MIN "purple")))
+(define B3 (make-balloon (SHP PTS 20  20  "green")))
+(define B4 (make-balloon (SHP PTS MAX MIN "purple")))
+
+(define (fn-for-baloon B)
+  (... (ballon-SHP B)   ;String
+       (ballon-PTS B)   ;Natural
+       (ballon-R1 B)    ;Natural[MIN, MAX]
+       (ballon-R2 B)    ;Natural[MIN, MAX]
+       (ballon-C B)))   ;String
+
+;; Template rules used:
+;;  - Compound 5 cases
 
 ;; =================
 ;; Functions:
@@ -44,7 +54,7 @@
   (big-bang ws                   ; WS
             (on-tick   tock)     ; WS -> WS
             (to-draw   render)   ; WS -> Image
-;           (on-mouse  ...)      ; WS Integer Integer MouseEvent -> WS
+;           (on-mouse  ...)      ; WS Integer Integer MouseEvent -> WS  ;leave out of the first build
             
 
 ;; WS -> WS
