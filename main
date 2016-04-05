@@ -11,7 +11,7 @@
 (define CTR-X (/ WIDTH 2))
 (define CTR-Y (/ HEIGHT 2))
 
-(define MTS (empty-scen WIDTH HEIGHT))
+(define MTS (empty-scene WIDTH HEIGHT))
 
 (define SHP "radial-star")  ;shape of ballon
 (define PTS 10)             ;# of points on exploded ballon
@@ -28,8 +28,11 @@
 ;;          PTS is the number of points on the exploded balloon
 ;;          R1 is the inner diamter
 ;;          R2 is the outter diameter
-;;          C is the color of the balloon
-
+;;          C is the color of the balloon                              ;THIS WILL NEED TO BE AN ENUMERATION !!!
+(define B1 (make-balloon (SHP PTS MIN MIN "red")))
+(define B2 (make-balloon (SHP PTS MAX MAX "blue")))
+(define B3 (make-balloon (SHP PTS 20  20  "green)))
+(define B4 (make-balloon (SHP PRS MAX MIN "purple")))
 
 ;; =================
 ;; Functions:
