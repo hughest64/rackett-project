@@ -21,7 +21,7 @@
 ;; =================
 ;; Data definitions:
 
-(define-struct (ballon (SHP PTS R1 R2 C)))
+(define-struct ballon (SHP PTS R1 R2 C))
 ;; BALLOON is (make-ballon (String Natural Natural[MIN-R, MAX-R] Natural[MIN-R, MAX-R] String))
 ;; interp.  (make-ballon (SHP PTS R1 R2 C)) is a balloon with 
 ;;          SHP is the shape of the ballon (radial-star)
