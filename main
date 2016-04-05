@@ -19,10 +19,11 @@
 ;; =================
 ;; Data definitions:
 
-(define-struct (ballon (SHP R1 R2 C)))
-;; BALLOON is (make-ballon (SHP Natural Natural String))
-;; interp.  (make=ballon (SHP R1 R2 C)) is a baloon with 
+(define-struct (ballon (SHP PTS R1 R2 C)))
+;; BALLOON is (make-ballon (SHP PTS Natural Natural String))
+;; interp.  (make=ballon (SHP PTS R1 R2 C)) is a baloon with 
 ;;          SHP is the shape of the ballon (radial-star)
+;;          PTS is the number of points on the exploded balloon
 ;;          R1 is the inner diamter
 ;;          R2 is the outter diameter
 ;;          C is the color of the balloon
