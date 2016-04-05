@@ -1,24 +1,38 @@
 (require 2htdp/image)
 (require 2htdp/universe)
 
-;; My world program  (make this more specific)
+;; A "balloon" tha changes colors and increases in size until it pops
 
 ;; =================
 ;; Constants:
+(define WIDTH 400)
+(define HEIGHT 200)
 
+(define CTR-X (/ WIDTH 2))
+(define CTR-Y (/ HEIGHT 2))
+
+(define MTS (empty-scen WIDTH HEIGHT))
+
+(define SHP "radial-star")
+(define PTS 10)
 
 ;; =================
 ;; Data definitions:
 
-;; WS is ... (give WS a better name)
-
+(define-struct (ballon (SHP R1 R2 C)))
+;; BALLOON is (make-ballon (SHP Natural Natural String))
+;; interp.  (make=ballon (SHP R1 R2 C)) is a baloon with 
+;;          SHP is the shape of the ballon (radial-star)
+;;          R1 is the inner diamter
+;;          R2 is the outter diameter
+;;          C is the color of the balloon
 
 
 ;; =================
 ;; Functions:
 
-;; WS -> WS
-;; start the world with ...
+;; BALLON -> BALLOON
+;; start the world with (make-balloon ...)
 ;; 
 (define (main ws)
   (big-bang ws                   ; WS
