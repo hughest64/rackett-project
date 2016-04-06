@@ -58,9 +58,9 @@
 ;; 
 (define (main B)
   (big-bang B                             ; BALLOON
-            (on-tick   next-balloon)      ; BALLOON -> BALLOON
+            (on-tick   next-balloon 1)    ; BALLOON -> BALLOON
             (to-draw   render-balloon)))  ; BALLOON -> Image
-;           (on-mouse  ...)      ; BALLOON Integer Integer MouseEvent -> BALLOON  ;leave out of the first build
+;           (on-mouse  ...)      ; BALLOON Integer Integer MouseEvent -> BALLOON  ;leave out of the first build !!!
             
 
 ;; BALLOON -> BALLOON
@@ -106,10 +106,10 @@
        
 ;; BALLOON -> Image
 ;; render the next balloon
-(check-expect (render-balloon  (make-ballon SHP PTS 50    50 SLD (choose-color B)))
-              (place-image     (make-ballon SHP PTS 55    55 SLD (choose-color B)) CTR-X CTR-Y MTS))
-(check-expect (render-balloon  (make-ballon SHP PTS MIN-R 15 SLD (choose-color B))) 
-              (place-image     (make-ballon SHP PTS 15    20 SLD (choose-color B)) CTR-X CTR-Y MTS))
+(check-expect (render-balloon  (make-ballon SHP PTS 50    50    SLD (choose-color B)))
+              (place-image     (make-ballon SHP PTS 55    55    SLD (choose-color B)) CTR-X CTR-Y MTS))
+(check-expect (render-balloon  (make-ballon SHP PTS MIN-R 15    SLD (choose-color B))) 
+              (place-image     (make-ballon SHP PTS 15    20    SLD (choose-color B)) CTR-X CTR-Y MTS))
 
 (check-expect (render-balloon  (make-ballon SHP PTS MAX-R MAX-R SLD (choose-color B))) 
               (place-image     (make-ballon SHP PTS MAX-R MIN-R SLD (choose-color B)) CTR-X CTR-Y MTS))
