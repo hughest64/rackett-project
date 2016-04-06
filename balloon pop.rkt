@@ -75,7 +75,7 @@
 
 ;template is from BALLOON !!!
 
-(define (next-balloon B)           ; !!!
+(define (next-balloon B)           
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
          (make-balloon SHP PTS (+ 5 (balloon-R1 B)) (+ 5 (balloon-R2 B)) SLD (choose-color B))]
         [else
@@ -106,11 +106,21 @@
        
 ;; BALLOON -> Image
 ;; render the next balloon
-;; !!!
+(check-expect (render-balloon  (make-ballon SHP PTS 50    50 SLD (choose-color B)))
+              (place-image  B  (make-ballon SHP PTS 55    55 SLD (choose-color B)) CTR-X CTR-Y MTS))
+(check-expect (render-balloon  (make-ballon SHP PTS MIN-R 15 SLD (choose-color B))) 
+              (place-image  B  (make-ballon SHP PTS 15    20 SLD (choose-color B)) CTR-X CTR-Y MTS))
+
+(check-expect (render-balloon  (make-ballon SHP PTS MAX-R MAX-R SLD (choose-color B))) 
+              (place-image  B  (make-ballon SHP PTS MAX-R MIN-R SLD (choose-color B)) CTR-X CTR-Y MTS))
+
 (define (render-balloon B) MTS)
 
-
-
+#;
+(define (fn-for-baloon B)           ; !!! - need to add place-image
+  (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
+         (render-ballon B (make-balloon SHP PTS (+ 5 (balloon-R1 B)) (+ 5 (balloon-R2 B)) SLD (choose-color B)))]
+         [else ...]))
 
 
 
