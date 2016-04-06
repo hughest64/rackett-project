@@ -121,7 +121,7 @@
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
          (make-balloon SHP PTS (balloon-R1 B) (balloon-R2 B) SLD (choose-color B))]
         [else 
-         (make-balloon SHP PTS MAX-R          MAX-R          SLD "red")]))
+         (make-balloon SHP PTS MAX-R          MIN-R          SLD "red")]))
 
 
 
