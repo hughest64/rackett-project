@@ -124,12 +124,12 @@
 ;;  BALLOON KeyEvent -> BALLOON
 ;;  press the spacebar to reset the balloon to MIN-R MIN-R !!!
 (check-expect (key-handler (make-balloon PTS 20 20 SLD "blue") "a") (make-balloon PTS 20 20 SLD "blue"))
-(check-expect (key-handler (make-balloon PTS 30 30 SLD "blue") " ") (make-balloon PTS MAX-R MIN-R SLD "red"))
+(check-expect (key-handler (make-balloon PTS 30 30 SLD "blue") " ") (make-balloon PTS MIN-R MIN-R SLD "red"))
 
-(define (key-handler B ke) B) ;stub
-#;
+;(define (key-handler B ke) B) ;stub
+
 (define (key-handler B ke)
-  (cond [(key=? B " " ke) B)]
+  (cond [(key=? ke " " ) (make-balloon PTS MIN-R MIN-R SLD "red")]
         [else
          B]))
 
