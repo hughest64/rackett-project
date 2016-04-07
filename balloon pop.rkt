@@ -26,9 +26,8 @@
 ;; Data definitions:
 
 (define-struct balloon (PTS R1 R2 SLD C))
-;; BALLOON is (make-balloon (String Natural Natural[MIN-R, MAX-R] Natural[MIN-R, MAX-R] String String))
-;; interp.  (make-balloon (SHP PTS R1 R2 SLD C)) is a balloon with 
-
+;; BALLOON is (make-balloon (Natural Natural[MIN-R, MAX-R] Natural[MIN-R, MAX-R] String String))
+;; interp.  (make-balloon (PTS R1 R2 SLD C)) is a balloon with 
 ;;          PTS is the number of points on the exploded balloon (10)
 ;;          R1 is the inner diamter
 ;;          R2 is the outer diameter
@@ -59,11 +58,11 @@
 ;; Functions:
 
 ;; BALLOON -> BALLOON
-;; start the world with (make-balloon ...)
+;; start the world with (make-balloon PTS MIN-R MIN-R SLD "red")
 ;; 
 (define (main B)
   (big-bang B                             ; BALLOON
-            (on-tick   next-balloon)      ; BALLOON -> BALLOON
+            (on-tick   next-balloon .5)   ; BALLOON -> BALLOON
             (to-draw   render-balloon)))  ; BALLOON -> Image
 ;           (on-mouse  ...)      ; BALLOON Integer Integer MouseEvent -> BALLOON  ;leave out of the first build
             
@@ -98,23 +97,17 @@
 ;;template from BALLOON
 
 (define (choose-color B)           
-  (cond [(string=? (balloon-C B) "red") "blue"]
-        [(string=? (balloon-C B) "blue") "green"]
+  (cond [(string=? (balloon-C B) "red")     "blue"]
+        [(string=? (balloon-C B) "blue")   "green"]
         [(string=? (balloon-C B) "green") "purple"]
         [else "red"]))
-      
-      
-
-              
-               
-     
-       
+        
 ;; BALLOON -> Image
 ;; render the next balloon
 (check-expect (render-balloon  (make-balloon PTS 50    50 SLD "red"))              
-              (place-image     (radial-star  PTS 55    55 SLD "blue") CTR-X CTR-Y MTS))
+              (place-image     (radial-star  PTS 50    50 SLD "blue") CTR-X CTR-Y MTS))
 (check-expect (render-balloon  (make-balloon PTS MIN-R 15 SLD "blue")) 
-              (place-image     (radial-star  PTS 15    20 SLD "green") CTR-X CTR-Y MTS))
+              (place-image     (radial-star  PTS MIN-R 15 SLD "green") CTR-X CTR-Y MTS))
 
 (check-expect (render-balloon  (make-balloon PTS MAX-R MAX-R SLD "blue"))
               (place-image     (radial-star  PTS MAX-R MIN-R SLD "red") CTR-X CTR-Y MTS))
@@ -122,7 +115,7 @@
 ;(define (render-balloon B) MTS) 'stub
 
 
-(define (render-balloon B)           ; !!!
+(define (render-balloon B)           
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
          (place-image (radial-star PTS (balloon-R1 B) (balloon-R2 B) SLD (choose-color B)) CTR-X CTR-Y MTS)]
         [else 
