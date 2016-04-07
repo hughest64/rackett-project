@@ -137,9 +137,16 @@
 
 ;; BALLOON MouseEvent -> BALLOON
 ;; instantly pop the ballon when you click on it
-;; !!!
-(define (mouse-handler B me) B)
+(check-expect (mouse-handler (make-balloon PTS 30 30 SLD "green") CTR-X CTR-Y "button-down")
+              (make-balloon PTS MAX-R MIN-R SLD "red"))
 
+;(define (mouse-handler B x y me) B) ;stub
+
+;(define (mouse-handler B x y me) B) ;stub
+(define (mouse-handler B x y me)
+  (cond [(mouse=? me "button-down" CTR-X CTR-Y) (make-balloon PTS MAX-R MIN-R SLD "red")]
+        [else
+         B]))
 
 
 
