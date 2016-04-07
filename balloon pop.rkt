@@ -16,7 +16,7 @@
 
 (define MTS (empty-scene WIDTH HEIGHT))
 
-;(define SHP "radial-star")  ;shape of balloon
+(define INC 5)              ;the rate at which the ballon increases in size
 (define PTS 10)             ;# of points on exploded balloon
 (define MIN-R 10)           ;minimum radius of balloon
 (define MAX-R 100)          ;maximum radius of balloon
@@ -82,7 +82,7 @@
 
 (define (next-balloon B)           ; !!!
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
-         (make-balloon PTS (+ 5 (balloon-R1 B)) (+ 5 (balloon-R2 B)) SLD (choose-color B))]
+         (make-balloon PTS (+ INC (balloon-R1 B)) (+ INC (balloon-R2 B)) SLD (choose-color B))]
         [else
          (make-balloon PTS MIN-R MAX-R SLD "red")]))
 
