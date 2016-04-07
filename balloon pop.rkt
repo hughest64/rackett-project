@@ -27,7 +27,7 @@
 
 (define-struct balloon (PTS R1 R2 SLD C))
 ;; BALLOON is (make-balloon (Natural Natural[MIN-R, MAX-R] Natural[MIN-R, MAX-R] String String))
-;; interp.  (make-balloon (PTS R1 R2 SLD C)) is a balloon with 
+;; interp. (make-balloon (PTS R1 R2 SLD C)) is a balloon with 
 ;;          PTS is the number of points on the exploded balloon (10)
 ;;          R1 is the inner diamter
 ;;          R2 is the outer diameter
@@ -52,7 +52,7 @@
 
 
 ;; Template rules used:
-;;  - Compound 6 cases
+;;  - Compound 5 cases
 
 ;; =================
 ;; Functions:
@@ -80,7 +80,7 @@
 
 ;template is from BALLOON !!!
 
-(define (next-balloon B)           ; !!!
+(define (next-balloon B)
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
          (make-balloon PTS (+ INC (balloon-R1 B)) (+ INC (balloon-R2 B)) SLD (choose-color B))]
         [else
@@ -88,10 +88,10 @@
 
 ;;; BALLOON -> String
 ;;; choose the next color of balloon
-(check-expect (choose-color (make-balloon PTS 40    40    SLD "red"))    "blue")
-(check-expect (choose-color (make-balloon PTS 40    40    SLD "blue"))   "green")
-(check-expect (choose-color (make-balloon PTS 33    33    SLD "green"))  "purple")
-(check-expect (choose-color (make-balloon PTS 60    60    SLD "purple")) "red")
+(check-expect (choose-color (make-balloon PTS 40  40 SLD "red"))      "blue")
+(check-expect (choose-color (make-balloon PTS 40  40 SLD "blue"))    "green")
+(check-expect (choose-color (make-balloon PTS 33  33 SLD "green"))  "purple")
+(check-expect (choose-color (make-balloon PTS 60  60 SLD "purple"))    "red")
 
 ;;(define (choose-color B) "yellow") ;stub
 
@@ -106,15 +106,14 @@
 ;; BALLOON -> Image
 ;; render the next balloon
 (check-expect (render-balloon  (make-balloon PTS 50    50 SLD "red"))              
-              (place-image     (radial-star  PTS 50    50 SLD "blue") CTR-X CTR-Y MTS))
+              (place-image     (radial-star  PTS 50    50 SLD "blue")   CTR-X CTR-Y MTS))
 (check-expect (render-balloon  (make-balloon PTS MIN-R 15 SLD "blue")) 
-              (place-image     (radial-star  PTS MIN-R 15 SLD "green") CTR-X CTR-Y MTS))
+              (place-image     (radial-star  PTS MIN-R 15 SLD "green")  CTR-X CTR-Y MTS))
 
 (check-expect (render-balloon  (make-balloon PTS MAX-R MAX-R SLD "blue"))
               (place-image     (radial-star  PTS MAX-R MIN-R SLD "red") CTR-X CTR-Y MTS))
 
-;(define (render-balloon B) MTS) 'stub
-
+;(define (render-balloon B) MTS) ;stub
 
 (define (render-balloon B)           
   (cond [(and (< (balloon-R1 B) MAX-R) (< (balloon-R2 B) MAX-R))
@@ -122,17 +121,24 @@
         [else 
          (place-image (radial-star PTS MAX-R          MIN-R          SLD "red") CTR-X CTR-Y MTS)]))
          
-;;  KeyEvent -> Image
-;;  press the spacebar to reset the balloon to MIN-R MIN-R
-;; !!!
-(define (key-handler ke) (MTS))
+;;  BALLOON KeyEvent -> BALLOON
+;;  press the spacebar to reset the balloon to MIN-R MIN-R !!!
+(check-expect (key-handler (make-balloon PTS 20 20 SLD "blue") "a") (make-balloon PTS 20 20 SLD "blue"))
+(check-expect (key-handler (make-balloon PTS 30 30 SLD "blue") " ") (make-balloon PTS MAX-R MIN-R SLD "red"))
+
+(define (key-handler B ke) B) ;stub
+#;
+(define (key-handler B ke)
+  (cond [(key=? B " " ke) B)]
+        [else
+         B]))
 
 
 
-;; MouseEvent -> Image
+;; BALLOON MouseEvent -> BALLOON
 ;; instantly pop the ballon when you click on it
 ;; !!!
-(define (mouse-handler me) (MTS))
+(define (mouse-handler B me) B)
 
 
 
