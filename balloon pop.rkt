@@ -143,6 +143,7 @@
 ;(define (mouse-handler B x y me) B) ;stub
 
 ;(define (mouse-handler B x y me) B) ;stub
+; !!! add mouse-event so that you have to clikc on the balloon (mouse-event? B)
 (define (mouse-handler B x y me)
   (cond [(mouse=? me "button-down" CTR-X CTR-Y) (make-balloon PTS MAX-R MIN-R SLD "red")]
         [else
