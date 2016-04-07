@@ -63,8 +63,9 @@
 (define (main B)
   (big-bang B                             ; BALLOON
             (on-tick   next-balloon .5)   ; BALLOON -> BALLOON
-            (to-draw   render-balloon)))  ; BALLOON -> Image
-;           (on-mouse  ...)      ; BALLOON Integer Integer MouseEvent -> BALLOON  ;leave out of the first build
+            (to-draw   render-balloon)    ; BALLOON -> Image
+            (on-key    key-handler)       ; BALLOON -> KeyEvent
+            (on-mouse  mouse-handler)))   ; BALLOON Integer Integer MouseEvent -> BALLOON
             
 
 ;; BALLOON -> BALLOON
@@ -120,6 +121,18 @@
          (place-image (radial-star PTS (balloon-R1 B) (balloon-R2 B) SLD (choose-color B)) CTR-X CTR-Y MTS)]
         [else 
          (place-image (radial-star PTS MAX-R          MIN-R          SLD "red") CTR-X CTR-Y MTS)]))
+         
+;;  KeyEvent -> Image
+;;  press the spacebar to reset the balloon to MIN-R MIN-R
+;; !!!
+(define (key-handler ke) (MTS))
+
+
+
+;; MouseEvent -> Image
+;; instantly pop the ballon when you click on it
+;; !!!
+(define (mouse-handler me) (MTS))
 
 
 
