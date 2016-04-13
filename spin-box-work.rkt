@@ -11,6 +11,15 @@
 (define-struct grapple (a s))
 
 ;; Grapple -> Grapple
+;; start the world with (main (make-grapple 0 0))
+;; 
+(define (main b)
+  (big-bang b                           ; Grapple
+            (on-tick   next-grapple)     ; Grapple -> Grapple
+            (to-draw   render-grapple)   ; Grapple -> Image                      
+            (on-key    handle-key)))     ; Grapple KeyEvent -> WS
+
+;; Grapple -> Grapple
 ;; produce then next size grapple at the next angle
 
 (check-expect (next-grapple  (make-grapple 0 0)) 
@@ -44,6 +53,7 @@
                      CTR-X 
                      MTS)
      b))
+     
 
 ;; Grapple KeyEvent -> Grapple
 ;; reset the program to 0 0 when space bar is pressed
@@ -54,6 +64,6 @@
  
 
 (define (handle-key b ke)  
- (if (and (number? (grapple-a b)) (number? (grapple-s b)) (key=? ke " "))    
-      (make-grapple 0 0)
-      b))
+ (cond [(and (number? (grapple-a b)) (number? (grapple-s b)) (key=? ke " "))    
+      (make-grapple 0 0)]
+      [else b]))
