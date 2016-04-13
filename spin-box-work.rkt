@@ -17,7 +17,8 @@
   (big-bang b                           ; Grapple
             (on-tick   next-grapple)     ; Grapple -> Grapple
             (to-draw   render-grapple)   ; Grapple -> Image                      
-            (on-key    handle-key)))     ; Grapple KeyEvent -> WS
+            (on-key    handle-key)     ; Grapple KeyEvent -> WS
+            (stop-when last-world)))
 
 ;; Grapple -> Grapple
 ;; produce then next size grapple at the next angle
@@ -67,3 +68,16 @@
  (cond [(and (number? (grapple-a b)) (number? (grapple-s b)) (key=? ke " "))    
       (make-grapple 0 0)]
       [else b]))
+      
+;; Grapple -> Boolean
+;; stop the program when the grapple is > 800 pixels
+(check-expect (last-world (make-grapple 250 50)) false)
+(check-expect (last-world (make-grapple 36 850)) true)
+(check-expect (last-world (make-grapple 100 50)) false)
+
+;(define (last-world b) false) ;stub
+     
+(define (last-world b)  
+  (if (< 800 (grapple-s b))
+      true
+      false))
