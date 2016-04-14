@@ -75,6 +75,4 @@
 ;(define (last-world b) false) ;stub
      
 (define (last-world b)  
-  (if (< 800 (grapple-s b))
-      true
-      false))
+  (< 800 (grapple-s b)))
