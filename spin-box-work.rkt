@@ -36,24 +36,21 @@
 
 
 (define (next-grapple b)
-  (cond [(and (number? (grapple-a b)) (number? (grapple-s b)))
-         (make-grapple (+ GROW-RATE (grapple-a b)) (+ ROTATE-RATE (grapple-s b)))]
-        [else b]))
+  (make-grapple (+ (grapple-a b) ROTATE-RATE)
+                (+ (grapple-s b) GROW-RATE)))
 
 ;; Grapple -> Image
 ;; produe the correct image of grapple on MTS
 (check-expect (render-grapple (make-grapple 45 20)) 
-              (place-image (rotate 45 (square 20 "solid" "red")) CTR-Y CTR-X MTS))
+              (place-image (rotate (remainder 45 360) (square 20 "solid" "red")) CTR-Y CTR-X MTS))
 
 ;(define (render-grapple b) (square 15 "solid" "blue")) ;stub
 
-(define (render-grapple b)  
- (if (and (number? (grapple-a b)) (number? (grapple-s b))) 
-        (place-image (rotate (grapple-a b) (square (grapple-s b) "solid" "red")) 
+(define (render-grapple b)
+        (place-image (rotate (remainder (grapple-a b) 360) (square (grapple-s b) "solid" "red")) 
                      CTR-Y 
                      CTR-X 
-                     MTS)
-     b))
+                     MTS))
      
 
 ;; Grapple KeyEvent -> Grapple
@@ -65,7 +62,7 @@
  
 
 (define (handle-key b ke)  
- (cond [(and (number? (grapple-a b)) (number? (grapple-s b)) (key=? ke " "))    
+ (cond [(key=? ke " "))    
       (make-grapple 0 0)]
       [else b]))
       
