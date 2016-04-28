@@ -16,11 +16,11 @@
 ;; Bear Integer Integer MouseEvent -> Image
 ;; create a new Bear at current x/y coord of the mouse when clicked
 (check-expect (handle-mouse (make-bear 45 0 0) 20 100 "button-down")
-              (make-bear 45 20 100))
+              (make-bear 0 20 100))
 
 ;(define (handle-mouse b x y me) (make-bear 0 0 0))
 
 (define (handle-mouse b x y me)
   (cond [(mouse-event? me "button-down")
-         (make-bear (bear-b b) x y)]
+         (make-bear 0 x y)]
         [else b]))
