@@ -64,8 +64,8 @@
 (define (main lob)
   (big-bang lob                         ; WS
             (on-tick   all-bears)       ; WS -> WS
-            (to-draw   render-bears)))    ; WS -> Image
-; (on-mouse  handle-mouse)))  ; WS Integer Integer MouseEvent -> WS
+            (to-draw   render-bears)    ; WS -> Image
+            (on-mouse  handle-mouse)))  ; WS Integer Integer MouseEvent -> WS
 
 
 
