@@ -121,6 +121,10 @@
 ;; !!!
 (define (larger? img1 img2) true)
 
+;(define (larger? img1 img2)
+;    (> (* (image-width img1) (image-height img1))
+;       (* (image-width img2) (image-height img2))))
+
 
 
 
