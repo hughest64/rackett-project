@@ -120,43 +120,71 @@
 ;; produce filtered and ticked list of drops
 (check-expect (next-drops empty) empty)
 (check-expect (next-drops (cons (make-drop 10 20) (cons (make-drop 3 6) empty)))
-              (cons (make-drop 10 (- 20 SPEED)) (cons (make-drop 3 (- 6 SPEED)) empty)))
+              (cons (make-drop 10 (+ 20 SPEED)) (cons (make-drop 3 (+ 6 SPEED)) empty)))
 (check-expect (next-drops (cons (make-drop 30 40) (cons (make-drop 3 0) empty)))
-              (cons (make-drop 30 (- 40 SPEED)) empty))
+              (cons (make-drop 30 (+ 40 SPEED)) empty))
 
 ;(define (next-drops lod)empty) ; stub
 
 (define (next-drops lod)
   (cond [(empty? lod) empty]
-        [(zero? (the-y (first lod)))
+        [(bottom? (first lod))
          (next-drops (rest lod))]
         [else
          (cons (one-drop (first lod))
                (next-drops (rest lod)))]))
 
-;; Drop -> Drop
+;; Drop -> Boolean
 ;; produce the y coord of a Drop
-(check-expect (the-y (make-drop 20 20)) 20)
-(check-expect (the-y (make-drop 50 0)) 0)
+(check-expect (bottom? (make-drop 20 20)) false)
+(check-expect (bottom? (make-drop 50 0)) true)
+(check-expect (bottom? (make-drop 100 -5)) true)
 
-;(define (the-y d) 0);stub
+;(define (bottom? d) 0);stub
 
-(define (the-y d)
-  (drop-y d)) 
+(define (bottom? d)
+  (<= (drop-y d) 0))
 
 ;; Drop -> Drop
 ;; Change the x y coord of a given drop
-(check-expect (one-drop (make-drop 20 30)) (make-drop 20 (- 30 SPEED)))
+(check-expect (one-drop (make-drop 20 30)) (make-drop 20 (+ 30 SPEED)))
 (check-expect (one-drop (make-drop 50 0)) (make-drop 50 0))
 
 ;(define (one-drop d) (make-drop 0 0)) ;stub
 
 (define (one-drop d)
   (if (> (drop-y d) 0)
-      (make-drop (drop-x d) (- (drop-y d) SPEED))
+      (make-drop (drop-x d) (+ (drop-y d) SPEED))
       d))
 
 ;; ListOfDrop -> Image
 ;; Render the drops onto MTS
-;; !!!
-(define (render-drops lod) MTS) ; stub
+(check-expect (render-drops empty) MTS)
+(check-expect (render-drops (cons (make-drop 10 20) (cons (make-drop 3 6) empty)))
+              (place-image DROP 20 20 
+                           (place-image DROP 3 6 
+                                        MTS)))
+(check-expect (render-drops (cons (make-drop 50 0) (cons (make-drop 3 6) empty)))
+              (place-image DROP 3 6 MTS))
+(check-expect (render-drops (cons (make-drop 50 20) (cons (make-drop 3 -3) empty)))
+              (place-image DROP 50 20 MTS))
+
+;(define (render-drops lod) MTS) ; stub
+
+(define (render-drops lod)
+  (cond [(empty? lod) MTS]
+        [else
+         (render-drop (first lod)
+         (render-drops (rest lod)))]))
+
+;; Drop ListOfImage-> Image
+;; procude a composite image of drops on MTS from a listofimages
+(check-expect (render-drop (make-drop 10 20) empty)
+              (cons (place-image DROP 10 20 MTS) empty))
+;(check-expect (render-drop (make-drop 50 60) (cons (place-image DROP 10 20 MTS) empty))
+;              (place-image DROP 50 60 (place-image DROP 10 20 MTS)))
+
+;(define (render-drop d loi) empty-image) ;stub
+
+(define (render-drop d loi)
+  (place-image DROP (drop-x d) (drop-y d) (render-drop (rest loi))))
