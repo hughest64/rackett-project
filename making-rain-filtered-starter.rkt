@@ -161,7 +161,7 @@
 ;; Render the drops onto MTS
 (check-expect (render-drops empty) MTS)
 (check-expect (render-drops (cons (make-drop 10 20) (cons (make-drop 3 6) empty)))
-              (place-image DROP 20 20 
+              (place-image DROP 10 20 
                            (place-image DROP 3 6 
                                         MTS)))
 (check-expect (render-drops (cons (make-drop 50 0) (cons (make-drop 3 6) empty)))
@@ -175,16 +175,16 @@
   (cond [(empty? lod) MTS]
         [else
          (render-drop (first lod)
-         (render-drops (rest lod)))]))
+                      (render-drops (rest lod)))]))
 
-;; Drop ListOfImage-> Image
+;; Drop Image -> Image
 ;; procude a composite image of drops on MTS from a listofimages
-(check-expect (render-drop (make-drop 10 20) empty)
-              (cons (place-image DROP 10 20 MTS) empty))
-;(check-expect (render-drop (make-drop 50 60) (cons (place-image DROP 10 20 MTS) empty))
-;              (place-image DROP 50 60 (place-image DROP 10 20 MTS)))
+(check-expect (render-drop (make-drop 10 20) MTS)
+              (place-image DROP 10 20 MTS))
+(check-expect (render-drop (make-drop 50 60) (place-image DROP 10 20 MTS))
+              (place-image DROP 50 60 (place-image DROP 10 20 MTS)))
 
-;(define (render-drop d loi) empty-image) ;stub
+;(define (render-drop d img) empty-image) ;stub
 
-(define (render-drop d loi)
-  (place-image DROP (drop-x d) (drop-y d) (render-drop (rest loi))))
+(define (render-drop d img)
+  (place-image DROP (drop-x d) (drop-y d) img))
