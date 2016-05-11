@@ -165,3 +165,5 @@
 
 (define (render-drop d img)
   (place-image DROP (drop-x d) (drop-y d) img))
+  
+; (main empty)
