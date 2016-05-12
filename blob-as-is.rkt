@@ -38,7 +38,7 @@
   (cond [(empty? lob) empty]
         [else
          (insert (which-blob (first lob))
-                 (sink (rest lob)))])) ; must produce a list
+                 (sink lob))])) ; must produce a list
 
 ;; Blob ListOfBlob -> ListOfBlob
 ;; move the first bubble to the front of the list
