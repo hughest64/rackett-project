@@ -42,7 +42,11 @@
 
 ;; Blob ListOfBlob -> ListOfBlob
 ;; move the first bubble to the front of the list
-
+(check-expect (insert "solid" empty) (cons "solid" empty))
+(check-expect (insert "solid" (cons "bubble" (cons "solid" (cons "bubble" empty))))
+             (cons "bubble" (cons "solid" (cons "bubble" (cons "solid" empty)))))
+(check-expect (insert "solid" (cons "bubble" (cons "bubble" (cons "solid" empty))))
+             (cons "bubble" (cons "solid" (cons "bubble" (cons "solid" empty)))))
 
 ;(define (insert b lob) lob)
 
