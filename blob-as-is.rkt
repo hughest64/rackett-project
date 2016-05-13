@@ -78,5 +78,24 @@
 (define (which-blob b)
   (cond [(string=? b "solid") "solid"]
         [(string=? b "bubble") "bubble"]))
+        
+;; -----------------------------------------------
+
+#;
+(cons 
+ (<function> (first lob) ?) ; upon recursion insert this in the proper place (one to the left)
+ (insert b (rest lob)))
+
+
+(check-expect (<function> b (cons "solid" (cons "bubble" empty))) (cons "bubble" (cons "solid" empty)))
+
+;(define (<function> b lob) lob)
+
+(define (<function> b lob)
+  (cond [(empty? lob) (cons b empty)]
+        [else
+         (if (= (which-blob b) "bubble")
+          (cons (first lob)
+              (<function> (rest lob))))]))
 
 
