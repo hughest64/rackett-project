@@ -40,21 +40,21 @@
 (define G2 (make-weasley "Albus" " " " " empty))
 (define G3 (make-weasley "James" " " " " empty))
 (define G4 (make-weasley "Victoire" " " " " empty))
-(define C5 (make-weasley "Bill" " " " " G4))
+(define C5 (make-weasley "Bill" " " " " (list G4)))
 (define C6 (make-weasley "Chalrie" " " "unicorn tail" empty))
 (define C7 (make-weasley "Percy" "?" "?" empty))
 (define C8 (make-weasley "Fred" "?" "?" empty))
 (define C9 (make-weasley "George" "?" "?" empty))
 (define C10 (make-weasley "Ron" "?" "?" empty))
 (define C11 (make-weasley "Ginny" "?" "?" (list G1 G2 G3)))
-(define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11)))
-
+(define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 C10 C11)))
+#;
 (define (fn-for-for-weasly w)
-	(... (weasley-name w)
-       (weasley-patronus w)
-       (weasley-wand w)
-       (fn-for-low (weasly-low w))))
-      
+	(... (weasley-name w)              ;string
+       	     (weasley-patronus w)          ;string
+             (weasley-wand w)              ;string
+             (fn-for-low (weasly-low w))))
+#;      
 (define (fn-for-low low)
   (cond [(empty? low) (...)]
         [else
@@ -85,6 +85,40 @@
 ;(even though we know he does) the result would be: (list (list "Harry" "Stag")).
 ;
 ;You must use ARTHUR as one of your examples.
+
+;; Weasley -> ListOfPairs
+;; ListOfWeasley -> ListOfPairs
+;; produce a list of every  character with their name and patronus
+(check-expect (name-pair--low empty) (list ))
+(check-expect (name-pair--weasley G1) (list (list "Lilly" " ")))
+
+(check-expect (name-pair--weasley C5) (list (list "Bill" " ") (list "Victoire" " ")))
+
+(check-expect (name-pair--weasley ARTHUR) (list (list "Arthur" "weasel") 
+                                                (list "Bill" " ")
+                                                (list "Victoire" " ")
+                                                (list "Charlie" "?")
+                                                (list "Percy" "?")
+                                                (list "Fred" "?")
+                                                (list "George" "?")
+                                                (list "Ron" "?")
+                                                (list "Ginny" "?")
+                                                (list "James" " ")
+                                                (list "Albus" " ")
+                                                (list "Lilly" " ")))
+
+;(define (name-pair--weasley w) (list ))
+;(define (name-pair--low low) (list ))
+
+(define (name-pair--weasley w)
+  (cons (list (weasley-name w) (weasley-patronus w))
+        (name-pair--low (weasley-low w))))
+
+(define (name-pair--low low)
+  (cond [(empty? low) (list )]
+        [else
+         (append (name-pair--weasley (first low))
+                 (name-pair--low (rest low)))]))
 
 
 ;PROBLEM 4:
