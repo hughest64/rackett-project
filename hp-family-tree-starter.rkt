@@ -29,10 +29,12 @@
 ;;          - wand is the material from which a characters wand is made
 ;;          - low is a ListOfWeasley
 ;;          - NOTE - the String " " is used a value is not specified.
+;; interp. A member of the weasley family with name, patronus type andy descendants
 
 ;; ListOfWeasley is one of:
 ;; - empty
 ;; - (cons (weasley (make-weasley n p w low))) 
+;; interp. a list of descendants from Arthur Weasley
 
 (define G1 (make-weasley "lilly" " " " " empty))
 (define G2 (make-weasley "Albus" " " " " empty))
@@ -45,7 +47,7 @@
 (define C9 (make-weasley "George" "?" "?" empty))
 (define C10 (make-weasley "Ron" "?" "?" empty))
 (define C11 (make-weasley "Ginny" "?" "?" (list G1 G2 G3)))
-(define P12 (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11)))
+(define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11)))
 
 (define (fn-for-for-weasly w)
 	(... (weasley-name w)
