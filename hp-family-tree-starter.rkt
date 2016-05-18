@@ -22,6 +22,31 @@
 ;wiki, which contains all necessary information for the other problems.  You 
 ;will use this data definition throughout the rest of the homework.
 
+(define-struct (weasley name patronus wand low))
+;; Weasley is (make-weasley String String String)
+;;          - name is a character name
+;;          - patronus is a characters patronus type
+;;          - wand is the material from which a characters wand is made
+;;          - low is a ListOfWeasley
+;;          - NOTE - the String " " is used a value is not specified.
+
+;; ListOfWeasley is one of:
+;; - empty
+;; - (cons (weasley (make-weasley n p w low))) 
+
+(define G1 "lilly" " " " " empty)
+(define G2 "Albus" " " " " empty)
+(define G3 "James" " " " " empty)
+(define G4 "Victoire" " " " " empty)
+(define C5 "Bill" " " " " G4)
+(define C6 "Chalrie" " " "unicorn tail" empty)
+(define C7 "Percy" ? ? empty)
+(define C8 "Fred" ? ? empty)
+(define C9 "George" ? ? empty)
+(define C10 "Ron" ? ? empty)
+(define C11 "Ginny" ? ? (list G1 G2 G3))
+(define P12 "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11))
+
 
 ;PROBLEM 2: 
 ;
