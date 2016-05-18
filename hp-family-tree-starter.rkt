@@ -36,7 +36,7 @@
 ;; - (cons (weasley (make-weasley n p w low))) 
 ;; interp. a list of descendants from Arthur Weasley
 
-(define G1 (make-weasley "lilly" " " " " empty))
+(define G1 (make-weasley "Lilly" " " " " empty))
 (define G2 (make-weasley "Albus" " " " " empty))
 (define G3 (make-weasley "James" " " " " empty))
 (define G4 (make-weasley "Victoire" " " " " empty))
@@ -47,7 +47,7 @@
 (define C9 (make-weasley "George" "?" "?" empty))
 (define C10 (make-weasley "Ron" "?" "?" empty))
 (define C11 (make-weasley "Ginny" "?" "?" (list G1 G2 G3)))
-(define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 C10 C11)))
+(define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 C10 C11))) ;; !!! correct?
 #;
 (define (fn-for-for-weasly w)
 	(... (weasley-name w)              ;string
@@ -94,18 +94,18 @@
 
 (check-expect (name-pair--weasley C5) (list (list "Bill" " ") (list "Victoire" " ")))
 
-(check-expect (name-pair--weasley ARTHUR) (list (list "Arthur" "weasel") 
-                                                (list "Bill" " ")
+(check-expect (name-pair--weasley ARTHUR) (list (list "Arthur" "weasel")  ;; !!! might be an issue here
+                                                (list "Lilly" " ")
+                                                (list "Albus" " ")
+                                                (list "James" " ")
                                                 (list "Victoire" " ")
+                                                (list "Bill" " ")
                                                 (list "Charlie" "?")
                                                 (list "Percy" "?")
                                                 (list "Fred" "?")
                                                 (list "George" "?")
                                                 (list "Ron" "?")
-                                                (list "Ginny" "?")
-                                                (list "James" " ")
-                                                (list "Albus" " ")
-                                                (list "Lilly" " ")))
+                                                (list "Ginny" "?")))
 
 ;(define (name-pair--weasley w) (list ))
 ;(define (name-pair--low low) (list ))
