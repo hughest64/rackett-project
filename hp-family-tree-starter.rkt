@@ -47,6 +47,17 @@
 (define C11 "Ginny" ? ? (list G1 G2 G3))
 (define P12 "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11))
 
+(define (fn-for-for-weasly w)
+	(... (weasley-name w)
+       (weasley-patronus w)
+       (weasley-wand w)
+       (fn-for-low (weasly-low w))))
+      
+(define (fn-for-low low)
+  (cond [(empty? low) (...)]
+        [else
+         (... (fn-for-weasley (first low))
+              (fn-for-low (rest low)))]))
 
 ;PROBLEM 2: 
 ;
