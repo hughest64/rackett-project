@@ -48,6 +48,7 @@
 (define C10 (make-weasley "Ron" "?" "?" empty))
 (define C11 (make-weasley "Ginny" "?" "?" (list G1 G2 G3)))
 (define ARTHUR (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 C10 C11))) ;; !!! correct?
+                                                   ;(list C5 C6 C7 C8 C9 C10 C11)))
 #;
 (define (fn-for-for-weasly w)
 	(... (weasley-name w)              ;string
@@ -106,6 +107,19 @@
                                                 (list "George" "?")
                                                 (list "Ron" "?")
                                                 (list "Ginny" "?")))
+                                                #;
+                                                (list (list "Arthur" "weasel")  ; maybe?
+                                                (list "Bill" " ")
+                                                (list "Victoire" " ")
+                                                (list "Charlie" "?")
+                                                (list "Percy" "?")
+                                                (list "Fred" "?")
+                                                (list "George" "?")
+                                                (list "Ron" "?")
+                                                (list "Ginny" "?")
+                                                (list "Lilly" " ")
+                                                (list "Albus" " ")
+                                                (list "James" " ")))
 
 ;(define (name-pair--weasley w) (list ))
 ;(define (name-pair--low low) (list ))
