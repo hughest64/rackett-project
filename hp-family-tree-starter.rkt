@@ -22,7 +22,7 @@
 ;wiki, which contains all necessary information for the other problems.  You 
 ;will use this data definition throughout the rest of the homework.
 
-(define-struct (weasley name patronus wand low))
+(define-struct weasley (name patronus wand low))
 ;; Weasley is (make-weasley String String String)
 ;;          - name is a character name
 ;;          - patronus is a characters patronus type
@@ -34,18 +34,18 @@
 ;; - empty
 ;; - (cons (weasley (make-weasley n p w low))) 
 
-(define G1 "lilly" " " " " empty)
-(define G2 "Albus" " " " " empty)
-(define G3 "James" " " " " empty)
-(define G4 "Victoire" " " " " empty)
-(define C5 "Bill" " " " " G4)
-(define C6 "Chalrie" " " "unicorn tail" empty)
-(define C7 "Percy" ? ? empty)
-(define C8 "Fred" ? ? empty)
-(define C9 "George" ? ? empty)
-(define C10 "Ron" ? ? empty)
-(define C11 "Ginny" ? ? (list G1 G2 G3))
-(define P12 "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11))
+(define G1 (make-weasley "lilly" " " " " empty))
+(define G2 (make-weasley "Albus" " " " " empty))
+(define G3 (make-weasley "James" " " " " empty))
+(define G4 (make-weasley "Victoire" " " " " empty))
+(define C5 (make-weasley "Bill" " " " " G4))
+(define C6 (make-weasley "Chalrie" " " "unicorn tail" empty))
+(define C7 (make-weasley "Percy" "?" "?" empty))
+(define C8 (make-weasley "Fred" "?" "?" empty))
+(define C9 (make-weasley "George" "?" "?" empty))
+(define C10 (make-weasley "Ron" "?" "?" empty))
+(define C11 (make-weasley "Ginny" "?" "?" (list G1 G2 G3)))
+(define P12 (make-weasley "Arthur" "weasel" " " (list G1 G2 G3 G4 C5 C6 C7 C8 C9 10 C11)))
 
 (define (fn-for-for-weasly w)
 	(... (weasley-name w)
