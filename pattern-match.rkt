@@ -74,6 +74,16 @@
 
 (define (pattern-match? p los)
   (cond [(empty? los) true]
+        [(empty? p) false]
+        [(and (string=? (first p) "A") (alphabetic? (first los)))
+              (pattern-match? (rest p) (rest los))]
+        [else 
+         (and (string=? (first p) "N") (numeric? (first los))
+              (pattern-match? (rest p) (rest los)))]))
+
+#; alternate version
+(define (pattern-match? p los)
+  (cond [(empty? los) true]
         [(and (empty? p) (cons? los)) false]
         [else
          (if (and (string=? (first p) "A") (alphabetic? (first los)))
