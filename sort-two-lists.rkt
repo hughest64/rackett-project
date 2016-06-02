@@ -1,5 +1,3 @@
-; sort two lists into one sorted list
-
 ;; ListOfNatural is one of:
 ;;  - empty
 ;;  - cons (Natrual ListOfNatural)
@@ -23,7 +21,10 @@
 (check-expect (big-list empty (list 1 2 3)) (list 1 2 3))
 (check-expect (big-list (list 4 5 6) empty) (list 4 5 6))
 (check-expect (big-list (list 1) (list 2)) (list 1 2))
-(check-expect (big-list (list 2) (list 1)) (list 1 2))
+
+(check-expect (big-list (cons 2 empty) (cons 1 empty))
+              (cons 1 (cons 2 empty)))
+
 (check-expect (big-list (list 1 4) (list 2 3)) (list 1 2 3 4))
 (check-expect (big-list (list 2 3) (list 1 4)) (list 1 2 3 4))
 (check-expect (big-list (list 2) (list 2)) (list 2 2))
@@ -35,6 +36,6 @@
   (cond [(empty? lsta) lstb]
         [(empty? lstb) lsta]
         [else
-         ;(if (> (first lsta) (first lstb))
-             (cons (first lsta) (big-list (rest lsta) (rest lstb)))]))
-            ; (cons (first lsta) (big-list (rest lsta) (rest lstb))))]))
+         (if (< (first lsta) (first lstb))
+             (cons (first lsta) (big-list (rest lsta) lstb))
+             (cons (first lstb) (big-list (rest lstb) lsta)))]))
