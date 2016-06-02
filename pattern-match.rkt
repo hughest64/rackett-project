@@ -57,6 +57,30 @@
 ;; ==========
 ;; Functions:
 
+;; Pattern ListOf1String -> Boolean
+;; produce true if a given pattern matches a givne ListOf1String
+;; if a list is shorter than a pattern it's true, if longer it's false
+(check-expect (pattern-match? empty empty) true)
+(check-expect (pattern-match? (list "A") empty) true)
+(check-expect (pattern-match? empty (list "1")) false)
+(check-expect (pattern-match? (list "A") (list "a")) true)
+(check-expect (pattern-match? (list "N") (list "a")) false)
+(check-expect (pattern-match? (list "N" "A") (list "1" "a")) true)
+(check-expect (pattern-match? (list "N" "A") (list "a" "2")) false)
+(check-expect (pattern-match? (list "A" "N" "A") (list "a" "2")) true)
+(check-expect (pattern-match? (list "N" "A") (list "a" "2" "b")) false)
+
+;(define (pattern-match? p los) true)
+
+(define (pattern-match? p los)
+  (cond [(empty? los) true]
+        [(and (empty? p) (cons? los)) false]
+        [else
+         (if (and (string=? (first p) "A") (alphabetic? (first los)))
+             (pattern-match? (rest p) (rest los))
+             (and (string=? (first p) "N") (numeric? (first los))
+                  (pattern-match? (rest p) (rest los))))]))
+
 ;; 1String -> Boolean
 ;; produce true if 1s is alphabetic/numeric
 (check-expect (alphabetic? " ") false)
