@@ -82,11 +82,23 @@
 ;; produce the team that knocked out (i.e. ousted) t in bracket br,              
 ;; or false if there isn't one.
 
+;; with local in the second fucntion the program will run faster.
+
 (check-expect (ouster "Nemesis" false) false)
 (check-expect (ouster "Scandal" BN) false)
 (check-expect (ouster "Nemesis" BN) "Riot")
 (check-expect (ouster "Traffic" BN) "Capitals")
 
+(define (ouster t br)
+  (cond [(false? br) false]
+        [else
+         (if (string=? t (bracket-team-lost br))
+             (bracket-team-won br)
+             (local [(define try (ouster t (bracket-br-won br)))]
+             (if (not (false? try))
+                 try
+                 (ouster t (bracket-br-lost br)))))]))
+#;
 (define (ouster t br)
   (cond [(false? br) false]
         [else
