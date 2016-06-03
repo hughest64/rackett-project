@@ -16,3 +16,47 @@
 ;    (if (even? x)
 ;        n
 ;        (+ n (foo (sub1 n))))))
+
+(define (foo n)
+
+  (local [(define x (* 3 n))]
+    (if (even? x)
+        n
+        (+ n (foo (sub1 n))))))
+
+
+(local [(define x (* 3 3))]
+  (if (even? x)
+      3
+      (+ 3 (foo (sub1 3)))))
+
+
+(local [(define x 9)]
+  (if (even? x)
+      3
+      (+ 3 (foo (sub1 3)))))
+
+
+(define x 9)
+(if (even? x)
+    3
+    (+ 3 (foo (sub1 3))))
+
+
+(if (even? x)
+    3
+    (+ 3 (foo (sub1 3))))
+
+
+(if (even? 9)
+    3
+    (+ 3 (foo (sub1 3))))
+
+
+(+ 3 (foo (sub1 3)))
+
+(+ 3 (foo 2))
+
+(+ 3 2)
+
+5
